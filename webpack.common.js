@@ -13,7 +13,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './public/index.html',
       filename: './index.html',
-      favicon: './public/favicon.ico',
+      favicon: './public/mattchat1.png',
       inject: false,
     }),
     new NodePolyfillPlugin(),
