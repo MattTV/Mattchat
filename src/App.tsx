@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useCallback, createContext } from 'react'
-import { Box, Container, Typography, Tabs, Tab, Grid, Avatar, Stack, Button, AppBar, Toolbar, List, ListItem, ListItemText, ListItemAvatar, makeStyles } from '@mui/material'
+import React, { useState, createContext } from 'react'
+import { Container, Typography, Grid, Avatar, Stack, Button,
+  List, ListItem, ListItemText, ListItemAvatar } from '@mui/material'
 import { AddCircleOutline } from '@mui/icons-material'
 import useAsyncEffect from 'use-async-effect'
 import checkForMetaNetClient from './utils/checkForMetaNetClient'
@@ -7,23 +8,14 @@ import { NoMncModal } from 'metanet-react-prompt'
 import './App.scss'
 import Chat, { ChatMessage } from './components/Chat'
 import NewConversationDialog from './components/NewConversationDialog'
-// import { Tokenator } from '@babbage/tokenator'
 import pushdrop from 'pushdrop'
-import { submitDirectTransaction, CreateActionResult, SubmitDirectTransaction, SubmitDirectTransactionOutput, getTransactionOutputs, createAction, discoverByIdentityKey } from '@babbage/sdk-ts'
+import { getTransactionOutputs, discoverByIdentityKey } from '@babbage/sdk-ts'
 import tokenator from './utils/tokenatorSingleton'
 import checkMessages from './utils/checkMessages'
 import getMyId from './utils/getMyId'
 import { addChat, loadSettings } from './utils/loadSettings'
 import { parseIdentity, TrustLookupResult } from 'identinator'
 import { Img } from 'uhrp-react'
-
-type PeerServMessage = {
-  messageId: number
-  body: CreateActionResult
-  sender: string
-  created_at: string
-  updated_at: string
-}
 
 type ChatCollection = {
   id: string
@@ -154,8 +146,6 @@ const App: React.FC = () => {
     const chatList = await loadSettings()
     console.log('chatList:', chatList)
     setChatIdList(chatList)
-
-    
 
     // Run a 1s interval for checking if MNC is running
     const mncCheck = setInterval(async () => {

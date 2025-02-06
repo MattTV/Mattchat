@@ -1,12 +1,8 @@
-import React, { FormEvent, useState, useEffect, useRef, useContext } from 'react'
-import { Button, LinearProgress, Grid, TextField, Typography, FormControl,
-  InputLabel, Select, MenuItem, Dialog, DialogTitle, DialogContent, DialogActions,
+import React, { useState, useContext } from 'react'
+import { Button, TextField, Typography,
+  Dialog, DialogTitle, DialogContent, DialogActions,
   DialogContentText, Autocomplete, Box,
 } from '@mui/material'
-import { CloudDownload } from '@mui/icons-material'
-import { download } from 'nanoseek'
-import constants from '../utils/constants'
-import { SelectChangeEvent } from '@mui/material'
 import useAsyncEffect from 'use-async-effect'
 import { discoverByAttributes } from '@babbage/sdk-ts'
 import { Identity, parseIdentity, TrustLookupResult } from 'identinator'
