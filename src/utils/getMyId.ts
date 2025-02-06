@@ -1,4 +1,4 @@
-import { getPublicKey } from "@babbage/sdk-ts"
+import { WalletClient } from '@bsv/sdk'
 
 let myId: string = ''
 
@@ -8,9 +8,9 @@ export default async function getMyId(): Promise<string> {
   if (!myId) {
 
     // get the user's MNC ID
-    myId = await getPublicKey({
+    myId = (await new WalletClient('json-api', 'non-admin.com').getPublicKey({
       identityKey: true
-    })
+    })).publicKey
 
   }
 

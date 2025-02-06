@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import useAsyncEffect from 'use-async-effect'
 import { download } from 'nanoseek'
 import { decrypt } from '@babbage/sdk-ts'
+import { WalletClient } from '@bsv/sdk'
 
 interface DecryptedImageProps {
   otherUserId: string,
@@ -40,13 +41,22 @@ const DecryptedImage: React.FC<DecryptedImageProps> = (props) => {
           console.log('decrypted image imageKey', props.imageKey)
 
           // decrypt the Blob
-          const decryptedArray = await decrypt({
+          // const decryptedArray = await decrypt({
+          //   ciphertext: encryptedBlobUint8Array,
+          //   protocolID: [1, 'MattChatEncryption'],
+          //   keyID: props.imageKey,
+          //   counterparty: props.otherUserId,
+          //   returnType: 'Uint8Array'
+          // })
+
+          // decrypt the Blob
+          const decryptedArray: Byte[] = (await new WalletClient('json-api', 'non-admin.com').decrypt({
             ciphertext: encryptedBlobUint8Array,
             protocolID: [1, 'MattChatEncryption'],
             keyID: props.imageKey,
             counterparty: props.otherUserId,
             returnType: 'Uint8Array'
-          })
+          })).plaintext
 
           // new Blob of the decrypted data
           const decryptedBlob = new Blob([decryptedArray], { type: mimeType})
